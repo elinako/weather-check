@@ -13,7 +13,7 @@ const SearchCityInput = () => {
     event.preventDefault();
 
     axios(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}&units=metric`
     ).then((response) => {
       setWeather(response.data);
       setIsSubmitted(true);

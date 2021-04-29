@@ -6,7 +6,7 @@ import SearchCityInput from "../SearchCityInput/SearchCityInput";
 const LocationDetect = () => {
   const [latitude, setLatitude] = useState("");
   const [longtitude, setLongtitude] = useState("");
-  const [cityFromLocation, setcityFromLocation] = useState({});
+  const [cityFromLocation, setcityFromLocation] = useState("");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -22,7 +22,9 @@ const LocationDetect = () => {
       axios(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longtitude}&key=${googleAPIKey}`
       ).then((response) => {
-        setcityFromLocation(response);
+        setcityFromLocation(
+          response.data.results[0].address_components[3].long_name
+        );
       });
     }
   }, [latitude, longtitude]);
