@@ -29,8 +29,6 @@ const LocationDetect = () => {
     }
   }, [latitude, longtitude]);
 
-  console.log("CL", cityFromLocation);
-
   return (
     <>
       <SearchCityInput />
