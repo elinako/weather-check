@@ -1,4 +1,7 @@
 import React from "react";
+import moment from "moment";
+
+const kelvinConstant = 273.15;
 
 const WeatherCardForSearchCity = ({ weatherProp, forecastProp }) => {
   console.log("forecastSEARCHCity", forecastProp);
@@ -7,19 +10,18 @@ const WeatherCardForSearchCity = ({ weatherProp, forecastProp }) => {
       <h1>Weather for search city:</h1>
       <p>{weatherProp.name}</p>
       <h2>Todays weather</h2>
-      <p>Temperature: {weatherProp.main.temp}</p>
-      <p>Feels like: {weatherProp.main.feels_like}</p>
+      <p>Temperature: {Math.round(weatherProp.main.temp)}</p>
+      <p>Feels like: {Math.round(weatherProp.main.feels_like)}</p>
       <p>Humidity: {weatherProp.main.humidity}</p>
       <p>Pressure: {weatherProp.main.pressure}</p>
       <p>Description: {weatherProp.weather[0].description}</p>
       {forecastProp.daily.map((day) => {
-        const mms = parseInt(`${day.dt}000`);
-        const date = new Date(mms).toString();
+        const date = moment(Number(`${day.dt}000`)).format("dddd D MMM");
         return (
-          <li>
+          <li key={day.dt}>
             <p>day: {date}</p>
-            <p>temperature: {day.temp.day}</p>
-            <p>feels like: {day.feels_like.day}</p>
+            <p>temperature: {Math.round(day.temp.day - kelvinConstant)}</p>
+            <p>feels like: {Math.round(day.feels_like.day - kelvinConstant)}</p>
             <p>weather: {day.weather[0].description}</p>
             <p>wind speed: {day.wind_speed}</p>
           </li>
