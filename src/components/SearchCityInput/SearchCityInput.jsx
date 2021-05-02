@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { weatherAPIKey } from "../../helpers/APIkeys";
-import { googleAPIKey } from "../../helpers/APIkeys";
-import axios from "axios";
+import {
+  axiosCurrentWeather,
+  axiosForecast,
+  axiosLatLonOfSearchCity,
+} from "../../helpers/searchAPI";
 
 import WeatherCard from "../WeatherCard/WeatherCard";
 
@@ -15,16 +17,12 @@ const SearchCityInput = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherAPIKey}&units=metric`
-    ).then((response) => {
-      setWeather(response.data);
+    axiosCurrentWeather(city).then((response) => {
+      setWeather(response);
       setIsSubmitted(true);
     });
 
-    axios(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${googleAPIKey}`
-    ).then((response) => {
+    axiosLatLonOfSearchCity(city).then((response) => {
       const coord = response.data.results[0].geometry.location;
       setCoordinates({ lat: String(coord.lat), lon: String(coord.lng) });
     });
@@ -34,9 +32,7 @@ const SearchCityInput = () => {
 
   useEffect(() => {
     if (coordinates.lat && coordinates.lon) {
-      axios(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=dayli&appid=${weatherAPIKey}`
-      ).then((response) => {
+      axiosForecast(coordinates).then((response) => {
         setForecast(response.data);
       });
     }

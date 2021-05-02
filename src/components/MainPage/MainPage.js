@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { googleAPIKey } from "../../helpers/APIkeys";
 import SearchCityInput from "../SearchCityInput/SearchCityInput";
+import { axiosCurrentCity, axiosForecast } from "../../helpers/searchAPI";
 
-const LocationDetect = () => {
+const MainPage = () => {
   const [latitude, setLatitude] = useState("");
   const [longtitude, setLongtitude] = useState("");
   const [cityFromLocation, setcityFromLocation] = useState("");
+  const [forecast, setForecast] = useState({});
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -19,15 +19,21 @@ const LocationDetect = () => {
 
   useEffect(() => {
     if (latitude && longtitude) {
-      axios(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longtitude}&key=${googleAPIKey}`
-      ).then((response) => {
+      axiosCurrentCity(latitude, longtitude).then((response) => {
         setcityFromLocation(
           response.data.results[0].address_components[3].long_name
         );
       });
+
+      const coordinates = { lat: latitude, lon: longtitude };
+      axiosForecast(coordinates).then((response) => {
+        setForecast(response.data);
+      });
     }
   }, [latitude, longtitude]);
+
+  console.log("loooocat", latitude, longtitude);
+  console.log("forec!!!!", forecast);
 
   return (
     <>
@@ -36,4 +42,4 @@ const LocationDetect = () => {
   );
 };
 
-export default LocationDetect;
+export default MainPage;
