@@ -1,11 +1,12 @@
 import React from "react";
 
-const WeatherCard = ({ weatherProp, forecastProp }) => {
+const WeatherCardForCurrentCity = ({ weatherProp, forecastProp }) => {
   console.log("forecast", forecastProp);
   return (
     <>
-      <p>Weather for city:</p>
+      <h2>Weather for your current city:</h2>
       <p>{weatherProp.name}</p>
+      <h2>Todays weather</h2>
       <p>Temperature: {weatherProp.main.temp}</p>
       <p>Feels like: {weatherProp.main.feels_like}</p>
       <p>Humidity: {weatherProp.main.humidity}</p>
@@ -15,4 +16,4 @@ const WeatherCard = ({ weatherProp, forecastProp }) => {
   );
 };
 
-export default WeatherCard;
+export default WeatherCardForCurrentCity;

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import SearchCityInput from "../SearchCityInput/SearchCityInput";
-import { axiosCurrentCity, axiosForecast } from "../../helpers/searchAPI";
+import {
+  axiosCurrentCity,
+  axiosForecast,
+  axiosCurrentWeather,
+} from "../../helpers/searchAPI";
+import WeatherCardForCurrentCity from "../WeatherCardForCurrentCity/WeatherCardForCurrentCity";
 
 const MainPage = () => {
   const [latitude, setLatitude] = useState("");
   const [longtitude, setLongtitude] = useState("");
+  const [loaded, setLoading] = useState(false);
+  const [weather, setWeather] = useState({});
   const [cityFromLocation, setcityFromLocation] = useState("");
   const [forecast, setForecast] = useState({});
 
@@ -32,12 +39,30 @@ const MainPage = () => {
     }
   }, [latitude, longtitude]);
 
-  console.log("loooocat", latitude, longtitude);
-  console.log("forec!!!!", forecast);
+  useEffect(() => {
+    if (cityFromLocation) {
+      axiosCurrentWeather(cityFromLocation).then((response) => {
+        setWeather(response);
+        setLoading(true);
+      });
+    }
+  }, [cityFromLocation]);
+
+  // console.log("weatherCurrent", weather);
+  // console.log("forec!!!!", forecast);
 
   return (
     <>
+      <p>Your current city: {cityFromLocation}</p>
       <SearchCityInput />
+      {loaded ? (
+        <WeatherCardForCurrentCity
+          weatherProp={weather}
+          forecastProp={forecast}
+        />
+      ) : (
+        <p>Loading</p>
+      )}
     </>
   );
 };

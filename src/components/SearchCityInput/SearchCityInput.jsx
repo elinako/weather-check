@@ -5,7 +5,7 @@ import {
   axiosLatLonOfSearchCity,
 } from "../../helpers/searchAPI";
 
-import WeatherCard from "../WeatherCard/WeatherCard";
+import WeatherCardForSearchCity from "../WeatherCardForSearchCity/WeatherCardForSearchCity";
 
 const SearchCityInput = () => {
   const [city, setCityName] = useState("");
@@ -50,7 +50,10 @@ const SearchCityInput = () => {
         <button>ok</button>
       </form>
       {isSubmitted && (
-        <WeatherCard weatherProp={weather} forecastProp={forecast} />
+        <WeatherCardForSearchCity
+          weatherProp={weather}
+          forecastProp={forecast}
+        />
       )}
     </>
   );
