@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
-const ms = 1620032400000;
+const ms = 1620032400;
+const mms = parseInt(`${ms}000`);
+const date = new Date(mms).toString();
 
-const date = new Date(ms);
-
-console.log("date", date.toString());
+console.log("date", date);
 
 ReactDOM.render(
   <React.StrictMode>

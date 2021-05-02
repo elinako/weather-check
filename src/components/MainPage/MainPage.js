@@ -10,7 +10,8 @@ import WeatherCardForCurrentCity from "../WeatherCardForCurrentCity/WeatherCardF
 const MainPage = () => {
   const [latitude, setLatitude] = useState("");
   const [longtitude, setLongtitude] = useState("");
-  const [loaded, setLoading] = useState(false);
+  const [loadedCurrent, setLoadingCurrentWeather] = useState(false);
+  const [loadedForecast, setLoadingForecast] = useState(false);
   const [weather, setWeather] = useState({});
   const [cityFromLocation, setcityFromLocation] = useState("");
   const [forecast, setForecast] = useState({});
@@ -35,6 +36,7 @@ const MainPage = () => {
       const coordinates = { lat: latitude, lon: longtitude };
       axiosForecast(coordinates).then((response) => {
         setForecast(response.data);
+        setLoadingForecast(true);
       });
     }
   }, [latitude, longtitude]);
@@ -43,7 +45,7 @@ const MainPage = () => {
     if (cityFromLocation) {
       axiosCurrentWeather(cityFromLocation).then((response) => {
         setWeather(response);
-        setLoading(true);
+        setLoadingCurrentWeather(true);
       });
     }
   }, [cityFromLocation]);
@@ -55,7 +57,7 @@ const MainPage = () => {
     <>
       <p>Your current city: {cityFromLocation}</p>
       <SearchCityInput />
-      {loaded ? (
+      {loadedCurrent && loadedForecast ? (
         <WeatherCardForCurrentCity
           weatherProp={weather}
           forecastProp={forecast}

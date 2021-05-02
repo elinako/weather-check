@@ -10,16 +10,19 @@ import WeatherCardForSearchCity from "../WeatherCardForSearchCity/WeatherCardFor
 const SearchCityInput = () => {
   const [city, setCityName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loadedCurrent, setLoadingCurrentWeather] = useState(false);
+  const [loadedForecast, setLoadingForecast] = useState(false);
   const [weather, setWeather] = useState({});
   const [forecast, setForecast] = useState({});
   const [coordinates, setCoordinates] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitted(true);
 
     axiosCurrentWeather(city).then((response) => {
       setWeather(response);
-      setIsSubmitted(true);
+      setLoadingCurrentWeather(true);
     });
 
     axiosLatLonOfSearchCity(city).then((response) => {
@@ -34,6 +37,7 @@ const SearchCityInput = () => {
     if (coordinates.lat && coordinates.lon) {
       axiosForecast(coordinates).then((response) => {
         setForecast(response.data);
+        setLoadingForecast(true);
       });
     }
   }, [coordinates]);
@@ -49,11 +53,20 @@ const SearchCityInput = () => {
         />
         <button>ok</button>
       </form>
+
       {isSubmitted && (
-        <WeatherCardForSearchCity
-          weatherProp={weather}
-          forecastProp={forecast}
-        />
+        <>
+          {loadedCurrent && loadedForecast ? (
+            <>
+              <WeatherCardForSearchCity
+                weatherProp={weather}
+                forecastProp={forecast}
+              />
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </>
       )}
     </>
   );
