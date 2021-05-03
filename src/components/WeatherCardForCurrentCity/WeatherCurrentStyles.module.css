@@ -1,0 +1,32 @@
+.titleDiv {
+  display: block;
+  text-align: center;
+}
+
+.currentCityWrapper {
+  display: flex;
+  margin: 0 auto;
+  width: 70vw;
+  justify-content: space-between;
+}
+
+.currentWeatherContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forecastContainer {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.forecastContainer li {
+  list-style: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 5px 5px 15px -6px #034f84;
+}

@@ -8,7 +8,8 @@ import {
 
 import WeatherCardForSearchCity from "../WeatherCardForSearchCity/WeatherCardForSearchCity";
 import notification from "../../helpers/notification";
-import Loader from "../../helpers/Loader";
+import Loader from "../../helpers/loader/Loader";
+import styles from "../SearchCityInput/SearchCityStyles.module.css";
 
 const SearchCityInput = () => {
   const [city, setCityName] = useState("");
@@ -67,14 +68,15 @@ const SearchCityInput = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
+          className={styles.input}
           type="text"
-          placeholder="your city"
+          placeholder="please enter city name"
           value={city}
           onChange={(e) => setCityName(e.target.value)}
         />
-        <button>ok</button>
+        <button className={styles.submitButton}>OK</button>
       </form>
 
       {isSubmitted && (

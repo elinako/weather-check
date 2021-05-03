@@ -5,8 +5,9 @@ import {
   axiosForecast,
   axiosCurrentWeather,
 } from "../../helpers/searchAPI";
-import WeatherCardForCurrentCity from "../WeatherCardForCurrentCity/WeatherCardForCurrentCity";
-import Loader from "../../helpers/Loader";
+import WeatherCardForCurrentCity from "../WeatherCardForCurrentCity/WeatherCardForCurrentCity.jsx";
+import Loader from "../../helpers/loader/Loader";
+import styles from "../MainPage/MainPageStyles.module.css";
 
 const MainPage = () => {
   const [latitude, setLatitude] = useState("");
@@ -53,18 +54,30 @@ const MainPage = () => {
 
   return (
     <>
+      <h2 className={styles.title}>Weather Check</h2>
+
       {!cityFromLocation && (
-        <p>Please allow Your current location for correct forecast</p>
+        <p className={styles.locationNotific}>
+          Please allow Your current location for correct forecast
+        </p>
       )}
-      <p>Your current location: {cityFromLocation}</p>
-      <SearchCityInput />
+      {cityFromLocation && (
+        <h3 className={styles.cityName}>
+          Your current location: {cityFromLocation}
+        </h3>
+      )}
+      <div className={styles.searchContainer}>
+        <p>You can search for the weather in any city:</p>
+        <SearchCityInput />
+      </div>
+
       {loadedCurrent && loadedForecast ? (
         <WeatherCardForCurrentCity
           weatherProp={weather}
           forecastProp={forecast}
         />
       ) : (
-        <Loader />
+        <Loader className={styles.loader} />
       )}
     </>
   );

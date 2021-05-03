@@ -1,0 +1,46 @@
+.locationNotific {
+  display: flex;
+  justify-content: center;
+  margin-top: 4vh;
+  font-family: "Lucida Sans", sans-serif;
+  color: #ff7b25;
+  font-size: 14px;
+}
+
+.title {
+  display: block;
+  text-align: center;
+  margin-top: 2vh;
+  font-size: 48px;
+  font-family: "Lucida Sans", sans-serif;
+  color: #034f84;
+}
+
+.title::after {
+  content: "";
+  display: block;
+  margin: 1vh auto;
+  width: 100px;
+  height: 100px;
+  background-image: url("../../img//cloudy.svg");
+  background-size: contain;
+}
+
+.cityName {
+  display: block;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Lucida Sans", sans-serif;
+  color: #034f84;
+  margin-top: 1vh;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 1vh;
+  flex-direction: column;
+  font-size: 20px;
+  font-family: "Lucida Sans", sans-serif;
+  color: #034f84;
+}
