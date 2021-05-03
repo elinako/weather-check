@@ -3,13 +3,12 @@ import { NotificationContainer } from "react-notifications";
 import {
   axiosCurrentWeatherByCityName,
   axiosForecast,
-  axiosCurrentWeather,
   axiosLatLonOfSearchCity,
 } from "../../helpers/searchAPI";
 
 import WeatherCardForSearchCity from "../WeatherCardForSearchCity/WeatherCardForSearchCity";
 import notification from "../../helpers/notification";
-import "react-notifications/lib/notifications.css";
+import Loader from "../../helpers/Loader";
 
 const SearchCityInput = () => {
   const [city, setCityName] = useState("");
@@ -26,7 +25,6 @@ const SearchCityInput = () => {
 
     axiosCurrentWeatherByCityName(city)
       .then((response) => {
-        console.log("11111", response.data.name);
         axiosLatLonOfSearchCity(city).then((response) => {
           const coord = response.data.results[0].geometry.location;
           setCoordinates({ lat: String(coord.lat), lon: String(coord.lng) });
@@ -35,11 +33,23 @@ const SearchCityInput = () => {
         setLoadingCurrentWeather(true);
       })
       .catch((error) => {
-        if (error.response.status === 404) {
-          notification({
-            type: "error",
-            message: "enter proper name of the city",
-          });
+        switch (error.response.status) {
+          case 404:
+            notification({
+              type: "warning",
+              message: "enter proper name of the city",
+            });
+            break;
+
+          case 400:
+            notification({
+              type: "warning",
+              message: "enter the name of the city",
+            });
+            break;
+
+          default:
+            return;
         }
       });
 
@@ -54,8 +64,6 @@ const SearchCityInput = () => {
       });
     }
   }, [coordinates]);
-
-  console.log("W", weather, "F", forecast);
 
   return (
     <>
@@ -79,7 +87,7 @@ const SearchCityInput = () => {
               />
             </>
           ) : (
-            <p>Loading...</p>
+            <Loader />
           )}
         </>
       )}

@@ -6,6 +6,7 @@ import {
   axiosCurrentWeather,
 } from "../../helpers/searchAPI";
 import WeatherCardForCurrentCity from "../WeatherCardForCurrentCity/WeatherCardForCurrentCity";
+import Loader from "../../helpers/Loader";
 
 const MainPage = () => {
   const [latitude, setLatitude] = useState("");
@@ -50,9 +51,6 @@ const MainPage = () => {
     }
   }, [latitude, longtitude]);
 
-  // console.log("weatherCurrent", weather);
-  // console.log("forec!!!!", forecast);
-
   return (
     <>
       <p>Your current city: {cityFromLocation}</p>
@@ -63,7 +61,7 @@ const MainPage = () => {
           forecastProp={forecast}
         />
       ) : (
-        <p>Loading</p>
+        <Loader />
       )}
     </>
   );
