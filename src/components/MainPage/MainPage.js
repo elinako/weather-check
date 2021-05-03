@@ -53,7 +53,10 @@ const MainPage = () => {
 
   return (
     <>
-      <p>Your current city: {cityFromLocation}</p>
+      {!cityFromLocation && (
+        <p>Please allow Your current location for correct forecast</p>
+      )}
+      <p>Your current location: {cityFromLocation}</p>
       <SearchCityInput />
       {loadedCurrent && loadedForecast ? (
         <WeatherCardForCurrentCity
