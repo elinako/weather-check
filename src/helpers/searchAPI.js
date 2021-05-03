@@ -4,10 +4,10 @@ import { weatherAPIKey, googleAPIKey } from "./APIkeys";
 const baseWeatherURL = "https://api.openweathermap.org";
 const baseGeocoderURL = "https://maps.googleapis.com/maps/api/geocode";
 
-const axiosCurrentWeather = (city) => {
+const axiosCurrentWeather = (lat, lon) => {
   return axios
     .get(
-      `${baseWeatherURL}/data/2.5/weather?q=${city}&appid=${weatherAPIKey}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8a711f92f9811ab059272b4607202f92&units=metric`
     )
     .then((response) => response.data);
 };

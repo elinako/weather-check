@@ -31,7 +31,7 @@ const SearchCityInput = () => {
       .catch((error) => {
         if (error.response.status === 404) {
           notification({
-            type: "warning",
+            type: "error",
             message: "enter proper name of the city",
           });
         }

@@ -42,15 +42,15 @@ const MainPage = () => {
   }, [latitude, longtitude]);
 
   useEffect(() => {
-    if (cityFromLocation) {
-      axiosCurrentWeather(cityFromLocation).then((response) => {
+    if (latitude && longtitude) {
+      axiosCurrentWeather(latitude, longtitude).then((response) => {
         setWeather(response);
         setLoadingCurrentWeather(true);
       });
     }
-  }, [cityFromLocation]);
+  }, [latitude, longtitude]);
 
-  // console.log("weatherCurrent", weather);
+  console.log("weatherCurrent", weather);
   // console.log("forec!!!!", forecast);
 
   return (

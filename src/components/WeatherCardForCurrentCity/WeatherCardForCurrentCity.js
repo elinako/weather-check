@@ -14,6 +14,7 @@ const WeatherCardForCurrentCity = ({ weatherProp, forecastProp }) => {
       <p>Humidity: {weatherProp.main.humidity}</p>
       <p>Pressure: {weatherProp.main.pressure}</p>
       <p>Description: {weatherProp.weather[0].description}</p>
+      <h1>Forecast</h1>
       {forecastProp.daily.map((day) => {
         const date = moment(Number(`${day.dt}000`)).format("dddd D MMM");
         return (
