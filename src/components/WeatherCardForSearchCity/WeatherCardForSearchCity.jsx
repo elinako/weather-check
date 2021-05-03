@@ -4,6 +4,7 @@ import moment from "moment";
 const kelvinConstant = 273.15;
 
 const WeatherCardForSearchCity = ({ weatherProp, forecastProp }) => {
+  console.log("weatherprop", weatherProp, "forecProp", forecastProp);
   return (
     <>
       <h1>Weather for search city:</h1>

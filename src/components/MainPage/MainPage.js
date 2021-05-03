@@ -50,7 +50,7 @@ const MainPage = () => {
     }
   }, [latitude, longtitude]);
 
-  console.log("weatherCurrent", weather);
+  // console.log("weatherCurrent", weather);
   // console.log("forec!!!!", forecast);
 
   return (

@@ -7,9 +7,17 @@ const baseGeocoderURL = "https://maps.googleapis.com/maps/api/geocode";
 const axiosCurrentWeather = (lat, lon) => {
   return axios
     .get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8a711f92f9811ab059272b4607202f92&units=metric`
+      `${baseWeatherURL}/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}&units=metric`
     )
     .then((response) => response.data);
+};
+
+const axiosCurrentWeatherByCityName = (city) => {
+  return axios
+    .get(
+      `${baseWeatherURL}/data/2.5/weather?q=${city}&appid=${weatherAPIKey}&units=metric`
+    )
+    .then((response) => response);
 };
 
 const axiosCurrentCity = (latitude, longtitude) => {
@@ -32,6 +40,7 @@ const axiosForecast = (coordinates) => {
 
 export {
   axiosCurrentWeather,
+  axiosCurrentWeatherByCityName,
   axiosLatLonOfSearchCity,
   axiosForecast,
   axiosCurrentCity,

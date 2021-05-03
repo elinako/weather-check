@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NotificationContainer } from "react-notifications";
 import {
-  axiosCurrentWeather,
+  axiosCurrentWeatherByCityName,
   axiosForecast,
+  axiosCurrentWeather,
   axiosLatLonOfSearchCity,
 } from "../../helpers/searchAPI";
 
@@ -23,9 +24,14 @@ const SearchCityInput = () => {
     event.preventDefault();
     setIsSubmitted(true);
 
-    axiosCurrentWeather(city)
+    axiosCurrentWeatherByCityName(city)
       .then((response) => {
-        setWeather(response);
+        console.log("11111", response.data.name);
+        axiosLatLonOfSearchCity(city).then((response) => {
+          const coord = response.data.results[0].geometry.location;
+          setCoordinates({ lat: String(coord.lat), lon: String(coord.lng) });
+        });
+        setWeather(response.data);
         setLoadingCurrentWeather(true);
       })
       .catch((error) => {
@@ -36,11 +42,6 @@ const SearchCityInput = () => {
           });
         }
       });
-
-    axiosLatLonOfSearchCity(city).then((response) => {
-      const coord = response.data.results[0].geometry.location;
-      setCoordinates({ lat: String(coord.lat), lon: String(coord.lng) });
-    });
 
     setCityName("");
   };
@@ -53,6 +54,8 @@ const SearchCityInput = () => {
       });
     }
   }, [coordinates]);
+
+  console.log("W", weather, "F", forecast);
 
   return (
     <>
