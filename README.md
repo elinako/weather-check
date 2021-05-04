@@ -9,3 +9,5 @@ You can also use this app on mobile in browser.
 Simple, easy but practical:)
 
 Enjoy!
+
+https://elinako.github.io/weather-check/
