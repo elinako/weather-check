@@ -88,7 +88,7 @@ const WeatherCardForSearchCity = ({ weatherProp, forecastProp }) => {
           </div>
         </div>
       </div>
-      <div className={styles.footer}>apr 2020</div>
+      <div className={styles.footer}>apr 2021</div>
     </>
   );
 };
