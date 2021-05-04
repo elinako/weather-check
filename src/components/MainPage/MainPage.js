@@ -54,7 +54,9 @@ const MainPage = () => {
 
   return (
     <>
-      <h2 className={styles.title}>Weather Check</h2>
+      <h2 className={styles.title}>
+        Weather <span></span> Check
+      </h2>
 
       {!cityFromLocation && (
         <p className={styles.locationNotific}>
@@ -66,19 +68,21 @@ const MainPage = () => {
           Your current location: {cityFromLocation}
         </h3>
       )}
-      <div className={styles.searchContainer}>
-        <p>You can search for the weather in any city:</p>
-        <SearchCityInput />
-      </div>
 
       {loadedCurrent && loadedForecast ? (
         <WeatherCardForCurrentCity
+          className={styles.weatherCardCurrent}
           weatherProp={weather}
           forecastProp={forecast}
         />
       ) : (
         <Loader className={styles.loader} />
       )}
+
+      <div className={styles.searchContainer}>
+        <p>You can search for the weather in any city:</p>
+        <SearchCityInput />
+      </div>
     </>
   );
 };

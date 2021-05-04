@@ -8,37 +8,83 @@ const WeatherCardForCurrentCity = ({ weatherProp, forecastProp }) => {
   return (
     <>
       <div className={styles.titleDiv}>
-        <h3 className={styles.headTitle}>Weather for your current location:</h3>
-        <p>{weatherProp.name}</p>
+        <p className={styles.headTitle}>
+          Weather for your current location:{" "}
+          <span className={styles.localName}>{weatherProp.name}</span>
+        </p>
       </div>
       <div className={styles.currentCityWrapper}>
         <div className={styles.currentWeatherContainer}>
-          <h2>Todays weather</h2>
-          <p>Temperature: {Math.round(weatherProp.main.temp)} &deg;C</p>
-          <p>Feels like: {Math.round(weatherProp.main.feels_like)} &deg;C</p>
-          <p>Humidity: {weatherProp.main.humidity} %</p>
-          <p>Pressure: {weatherProp.main.pressure} mb</p>
-          <p>Description: {weatherProp.weather[0].description}</p>
+          <h2 className={styles.titleSection}>Todays weather</h2>
+          <p>
+            Temperature:
+            <span className={styles.digits}>
+              {" "}
+              {Math.round(weatherProp.main.temp)} &deg;{" "}
+            </span>
+          </p>
+          <p>
+            Feels like:
+            <span className={styles.digits}>
+              {" "}
+              {Math.round(weatherProp.main.feels_like)} &deg;C{" "}
+            </span>
+          </p>
+          <p>
+            Humidity:{" "}
+            <span className={styles.digits}>{weatherProp.main.humidity} %</span>
+          </p>
+          <p>
+            Pressure:
+            <span className={styles.digits}>
+              {weatherProp.main.pressure} mb
+            </span>
+          </p>
+          <p>
+            Description:
+            <span className={styles.digits}>
+              {" "}
+              {weatherProp.weather[0].description}
+            </span>
+          </p>
         </div>
 
         <div className={styles.forecastWrapper}>
-          <h4>Forecast</h4>
+          <h2 className={styles.titleSection}>Forecast</h2>
           <div className={styles.forecastContainer}>
             {forecastProp.daily.map((day) => {
               const date = moment(Number(`${day.dt}000`)).format("dddd D MMM");
               return (
                 <li key={day.dt}>
-                  <p>day: {date}</p>
                   <p>
-                    temperature: {Math.round(day.temp.day - kelvinConstant)}{" "}
-                    &deg;C
+                    <span className={styles.dayName}>{date}</span>
                   </p>
                   <p>
-                    feels like:{" "}
-                    {Math.round(day.feels_like.day - kelvinConstant)} &deg;C
+                    temperature:
+                    <span className={styles.digits}>
+                      {Math.round(day.temp.day - kelvinConstant)}
+                      &deg;C
+                    </span>
                   </p>
-                  <p>weather: {day.weather[0].description}</p>
-                  <p>wind speed: {day.wind_speed} m/s</p>
+                  <p>
+                    feels like:
+                    <span className={styles.digits}>
+                      {Math.round(day.feels_like.day - kelvinConstant)} &deg;C
+                    </span>
+                  </p>
+                  <p>
+                    weather:{" "}
+                    <span className={styles.digitsWeather}>
+                      {day.weather[0].description}{" "}
+                    </span>{" "}
+                  </p>
+                  <p>
+                    wind speed:{" "}
+                    <span className={styles.digits}>
+                      {" "}
+                      {day.wind_speed} m/s{" "}
+                    </span>
+                  </p>
                 </li>
               );
             })}

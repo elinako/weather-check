@@ -8,20 +8,22 @@
 }
 
 .title {
-  display: block;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 2vh;
-  font-size: 48px;
+  margin-bottom: 0.5vh;
+  font-size: 28px;
   font-family: "Lucida Sans", sans-serif;
   color: #034f84;
+  height: 80px;
 }
 
-.title::after {
+.title span::after {
   content: "";
-  display: block;
-  margin: 1vh auto;
-  width: 100px;
-  height: 100px;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
   background-image: url("../../img//cloudy.svg");
   background-size: contain;
 }
@@ -29,10 +31,11 @@
 .cityName {
   display: block;
   text-align: center;
-  font-size: 32px;
+  font-size: 20px;
   font-family: "Lucida Sans", sans-serif;
   color: #034f84;
-  margin-top: 1vh;
+  margin-top: 0.5vh;
+  font-weight: 400;
 }
 
 .searchContainer {
